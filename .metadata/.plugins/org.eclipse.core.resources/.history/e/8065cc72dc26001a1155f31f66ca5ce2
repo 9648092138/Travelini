@@ -1,0 +1,78 @@
+#spring.datasource.url=jdbc:postgresql://localhost:5432/travelini
+
+
+#spring.datasource.url=jdbc:postgresql://localhost:5432/Travelini_latest
+#spring.datasource.username=postgres
+#spring.datasource.password=root
+
+#Live Server Credentials
+#spring.datasource.url=jdbc:postgresql://ec2-3-17-156-146.us-east-2.compute.amazonaws.com:5432/Travelini_latest
+#spring.datasource.username=postgres
+#spring.datasource.password=postgres
+
+#Test Server Credentials
+#spring.datasource.username=root
+#spring.datasource.password=root
+#spring.datasource.url=jdbc:mysql://localhost:3306/travelini
+
+#Local Server Credentials
+#spring.datasource.username=OP
+#spring.datasource.password=root@123
+#spring.datasource.url=jdbc:mysql://localhost:3306/Travelini_latest?createDatabaseIfNotExist=true
+#server.port = 9090
+server.servlet.context-path=/api
+spring.jpa.properties.hibernate.enable_lazy_load_no_trans=true
+
+#spring.jpa.hibernate.ddl-auto=create
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.default_schema=staging
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+spring.jackson.deserialization.FAIL_ON_UNKNOWN_PROPERTIES=false
+
+spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
+#spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
+#spring.mail.host=smtp.sparkpostmail.com
+spring.mail.host=smtp.mandrillapp.com
+spring.mail.port=587
+spring.mail.username=Travelini
+#spring.mail.username=bookings@travelini.co
+spring.mail.password=b7M782wIJKhbaIohyvBmLw
+
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+
+
+#travelini.service_url_base=http://ec2-18-218-195-204.us-east-2.compute.amazonaws.com:8080/travelini
+travelini.service_url_base=http://ec2-3-17-156-146.us-east-2.compute.amazonaws.com:8080/travelini
+#travelini.service_url_base=http://localhost:8080
+travelini.service_local_url = http://localhost:8080/api
+travelini.sender.emailaddress=lini@travelini.co
+
+travelini.verificationmail.subject=Welcome to Travelini
+travelini.verificationmail.text=${travelini.service_url_base}${server.servlet.context-path}/v1/verify?a=<account-id>&t=<token>
+#travelini.verificationmail.text=${travelini.service_local_url}${server.servlet.context-path}/v1/verify?a=<account-id>&t=<token>
+
+travelini.passwordreset.subject=Reset Password
+travelini.passwordreset.text=Please use the OTP to change your password: <new-password>
+
+spring.thymeleaf.cache=false
+air.username=Universal API/uAPI3448378473-bf881260
+air.password=2De-Zi{38%
+air.endpoint=https://emea.copy-webservices.travelport.com/B2BGateway/connect/uapi/
+air.branch=P7092674
+
+## MULTIPART (MultipartProperties)
+# Enable multipart uploads
+spring.servlet.multipart.enabled=true
+# Threshold after which files are written to disk.
+spring.servlet.multipart.file-size-threshold=2KB
+# Max file size.
+spring.servlet.multipart.max-file-size=200MB
+# Max Request Size
+spring.servlet.multipart.max-request-size=215MB
+
+## File Storage Properties
+# All files uploaded through the REST API will be stored in this directory
+#file.upload-dir=  F:/backend services/backend-services/pictures/
+file.upload-dir=http://ec2-3-17-156-146.us-east-2.compute.amazonaws.com:8080/images
