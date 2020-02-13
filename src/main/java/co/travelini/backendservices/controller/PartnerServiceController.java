@@ -67,12 +67,12 @@ public class PartnerServiceController {
 		try
 		{
 			sendTransactionDetails.sendUserTransaction(accountId, partnerServiceDTO,Transactionid);
-		     res.setStatus(TraveliniResponseStatus.SUCCESS);
+		    res.setStatus(TraveliniResponseStatus.SUCCESS);
 			res.setMessage("Generic Success");
 			res.setData(Transactionid);
 			res.setCode(1000001);
 			res.setAppCode("Suc_Generic");
-		}
+ 		}
 			catch(Exception e)
 			{
 			res.setStatus(TraveliniResponseStatus.ERROR);

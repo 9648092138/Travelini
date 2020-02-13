@@ -12,9 +12,22 @@ public class OriginDestinationDetails {
 	String StartDate;
 	String EndDate;
 	String NumberOfVisas;
-		
+	String NameOfCurrency;
+	String AmountOfInvest;
 	
 	
+	public String getNameOfCurrency() {
+		return NameOfCurrency;
+	}
+	public void setNameOfCurrency(String nameOfCurrency) {
+		NameOfCurrency = nameOfCurrency;
+	}
+	public String getAmountOfInvest() {
+		return AmountOfInvest;
+	}
+	public void setAmountOfInvest(String amountOfInvest) {
+		AmountOfInvest = amountOfInvest;
+	}
 	public String getNumberOfVisas() {
 		return NumberOfVisas;
 	}

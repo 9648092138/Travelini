@@ -89,10 +89,11 @@ public class TemplateService
         if(obj.getType().toString().equals("INSURANCE")) {
         	
         	context.setVariable("msg","Hello"+",");
-        	context.setVariable("UserName","User Name :"+obj.getPrimaryContactDTO().getEmailId());
-            context.setVariable("Transactiontype","Service Request Type: "+"Travel Insurance");
+        	context.setVariable("UserName","User Name : "+ obj.getPrimaryContactDTO().getEmailId());
+        	System.out.println( obj.getPrimaryContactDTO().getEmailId());
+            context.setVariable("Transactiontype","Service Request Type: "+" Travel Insurance");
             context.setVariable("TransactionCode","Service Request Id : "+TransactionId);
-            context.setVariable("Name","Name of Applicant :"+obj.getPrimaryContactDTO().getName());
+            context.setVariable("Name","Name of Applicant :"+ obj.getPrimaryContactDTO().getName());
                         
             List<OriginDestinationDetails> OriginDestList = new ArrayList<>();
             
@@ -103,14 +104,14 @@ public class TemplateService
             	if(i==0) {
 	            	OriginObj.setAdultCount("Number Of Adults : "+obj.getOriginDestinationDetailDTOList().get(i).getAdultCount());
 	            	OriginObj.setChildCount("Number Of Childs : " +obj.getOriginDestinationDetailDTOList().get(i).getChildCount());
-	            	OriginObj.setOriginCountry("Origin Country : "+countryRepo.findById(obj.getOriginDestinationDetailDTOList().get(i).getOriginCountryId()).get().getName());
+	            	OriginObj.setOriginCountry("Origin Country : " +countryRepo.findById(obj.getOriginDestinationDetailDTOList().get(i).getOriginCountryId()).get().getName());
 	            	OriginObj.setDestinationCountry("Destination Country : "+countryRepo.findById(obj.getOriginDestinationDetailDTOList().get(i).getDestinationCountryId()).get().getName());
 	            	OriginObj.setEndDate("EndDate : " + obj.getOriginDestinationDetailDTOList().get(i).getEndDate().toString());
 	            	OriginObj.setStartDate("StartDate : " + obj.getOriginDestinationDetailDTOList().get(i).getStartDate().toString());
 	            	}else {
-	            		OriginObj.setAdultCount("Number Of Adults : "+obj.getOriginDestinationDetailDTOList().get(i).getAdultCount());
-		            	OriginObj.setChildCount("Number Of Childs : " +obj.getOriginDestinationDetailDTOList().get(i).getChildCount());
-		            	OriginObj.setDestinationCountry("Destination Country : "+countryRepo.findById(obj.getOriginDestinationDetailDTOList().get(i).getDestinationCountryId()).get().getName());
+	            		OriginObj.setAdultCount("Number Of Adults : " +obj.getOriginDestinationDetailDTOList().get(i).getAdultCount());
+		            	OriginObj.setChildCount("Number Of Childs : "  +obj.getOriginDestinationDetailDTOList().get(i).getChildCount());
+		            	OriginObj.setDestinationCountry("Destination Country : " +countryRepo.findById(obj.getOriginDestinationDetailDTOList().get(i).getDestinationCountryId()).get().getName());
 		            	OriginObj.setEndDate("EndDate : " + obj.getOriginDestinationDetailDTOList().get(i).getEndDate().toString());
 		            	OriginObj.setStartDate("StartDate :" + obj.getOriginDestinationDetailDTOList().get(i).getStartDate().toString());
 	            	}
@@ -118,10 +119,10 @@ public class TemplateService
             }
                         
               context.setVariable("originDestinationDetails",OriginDestList);  
-              context.setVariable("Mobilenumber","Mobile Number :"+obj.getPrimaryContactDTO().getPhoneNum());
+              context.setVariable("Mobilenumber","Mobile Number :" +obj.getPrimaryContactDTO().getPhoneNum());
 	          context.setVariable("Email", "Email :"+ obj.getPrimaryContactDTO().getEmailId());
-	          context.setVariable("Address","Address :"+obj.getPrimaryContactDTO().getAddress());
-	          
+	          context.setVariable("Address","Address :" +obj.getPrimaryContactDTO().getAddress());
+	          context.setVariable("Nationality","Nationality :" +nationality);
 	          SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
 	          Date date = new Date();  
 	          System.out.println(formatter.format(date));
@@ -133,14 +134,14 @@ public class TemplateService
         
         else if(obj.getType().toString().equals("VISA")){
         	
-        	context.setVariable("msg","Hello Travelini"+",");
-        	context.setVariable("UserName","User Name :"+obj.getPrimaryContactDTO().getEmailId());
-            context.setVariable("Transactiontype","Service Request Type: "+"Visa Application Service");
-            context.setVariable("TransactionCode","Service Request Id : "+TransactionId);
-            context.setVariable("Mobilenumber","Mobile Number :"+obj.getPrimaryContactDTO().getPhoneNum());
-	          context.setVariable("Email", "Email :"+ obj.getPrimaryContactDTO().getEmailId());
-	          context.setVariable("Address","Address :"+obj.getPrimaryContactDTO().getAddress());
-	          context.setVariable("Nationality","Nationality :"+nationality);
+        	context.setVariable("msg","Hello " + ",");
+        	context.setVariable("UserName","User Name :"+ obj.getPrimaryContactDTO().getEmailId());
+            context.setVariable("Transactiontype","Service Request Type: "+" Visa Application Service");
+            context.setVariable("TransactionCode","Service Request Id : "+ TransactionId);
+            context.setVariable("Mobilenumber","Mobile Number :"+ obj.getPrimaryContactDTO().getPhoneNum());
+	        context.setVariable("Email", "Email :"+ obj.getPrimaryContactDTO().getEmailId());
+	         context.setVariable("Address","Address :"+ obj.getPrimaryContactDTO().getAddress());
+	          context.setVariable("Nationality","Nationality :"+ nationality);
 	          
 	          List<OriginDestinationDetails> OriginDestList = new ArrayList<>();
 	            
@@ -159,20 +160,24 @@ public class TemplateService
 	              context.setVariable("originDestinationDetails",OriginDestList); 
 	          
 	          for(int i=0;i<obj.getForexAmountsDTOList().size();i++) {
-	          context.setVariable("PaymentAmount", "Payment Amount"+obj.getForexAmountsDTOList().get(i).getAmount());
-	         
-	          context.setVariable("PaymentId","Payment Id :"+obj.getServiceTransactionList().get(i).getTransactionNumber());
-        
+	          context.setVariable("PaymentAmount", "Payment Amount:" +" "+countryRepo.findById(obj.getForexAmountsDTOList().get(i).getCurrencyId()).get().getCurrencyCode()+" "+obj.getForexAmountsDTOList().get(i).getAmount());
+	          context.setVariable("PaymentId","Payment Id :" +obj.getServiceTransactionList().get(i).getTransactionNumber());
+	          SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	          Date date = new Date();  
+	          System.out.println(formatter.format(date));
+	          
+	          context.setVariable("TransactionDate","Date and Time:"+formatter.format(date));
         
         }
         }
 	          else if(obj.getType().toString().equals("DRIVING")){
-	          	context.setVariable("msg","Hello Travelini"+",");
+	          	context.setVariable("msg","Hello"+",");
 	          	context.setVariable("UserName","User Name :"+obj.getPrimaryContactDTO().getEmailId());
 	            for(int i=0;i<obj.getForexAmountsDTOList().size();i++) {
 	          		String amount = obj.getPrimaryContactDTO().getAmount();
-	          		context.setVariable("PaymentAmount","Payment Amount :"+amount);
-	          		if(amount.equals("300")) {
+	          		int amountcost =Integer.valueOf(amount);
+	          		context.setVariable("PaymentAmount","Payment Amount :" +supportedCurrencyRepo.findById(obj.getForexAmountsDTOList().get(i).getCurrencyId()).get().getCode() + " "+amount);
+	          		if(amountcost >300 || amountcost==300) {
 	          			 context.setVariable("Transactiontype","Service Request Type: "+"Urgent Driver's License");
 	          		}
 	          		else {
@@ -180,42 +185,85 @@ public class TemplateService
 	          		}
 	          			
 	          		}
-	          	
-	            context.setVariable("TransactionCode","Service Request Id : "+TransactionId);
-	            context.setVariable("Name","Name of Applicant :"+obj.getPrimaryContactDTO().getName());
-	            context.setVariable("Mobilenumber","Mobile Number :"+obj.getPrimaryContactDTO().getPhoneNum());
+	            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+		          Date date = new Date();  
+		          System.out.println(formatter.format(date));
+	             context.setVariable("TransactionCode","Service Request Id : "+TransactionId);
+	             context.setVariable("Name","Name of Applicant :"+obj.getPrimaryContactDTO().getName());
+	             context.setVariable("Mobilenumber","Mobile Number :"+obj.getPrimaryContactDTO().getPhoneNum());
 		          context.setVariable("Email", "Email :"+ obj.getPrimaryContactDTO().getEmailId());
 		          context.setVariable("Address","Address :"+obj.getPrimaryContactDTO().getAddress());
 		          context.setVariable("Nationality","Nationality :"+nationality);
+		          
 		          for(int i=0;i<obj.getForexAmountsDTOList().size();i++) {
-	      
+	          if(i==0) {
 	           context.setVariable("PaymentId","Payment Id :"+obj.getServiceTransactionList().get(i).getTransactionNumber());}
-	          }
+	         
+		          
+		          }
+		          context.setVariable("TransactionDate","Date and Time:"+formatter.format(date));
+		          }
         
         
 	        
 	          else if(obj.getType().toString().equals("FOREX")) {
-	        		context.setVariable("msg","Hello Travelini"+",");
-	            	context.setVariable("UserName","User Name :"+obj.getPrimaryContactDTO().getEmailId());
+	        		context.setVariable("msg","Hello"+",");
+	            	context.setVariable("UserName","User Name :" +obj.getPrimaryContactDTO().getEmailId());
 	                context.setVariable("Transactiontype","Service Request Type: "+"Forex Card");
 	                context.setVariable("TransactionCode","Service Request Id : "+TransactionId);
-	                for(int i=0;i<obj.getForexAmountsDTOList().size();i++) 
-	                {
-	                   context.setVariable("PaymentAmount","Payment Amount :"+obj.getForexAmountsDTOList().get(i).getAmount());
-	     	           context.setVariable("PaymentId","Payment Id :"+obj.getServiceTransactionList().get(i).getTransactionNumber());
-	     	           }
-	                context.setVariable("Name","Name of Applicant :"+obj.getPrimaryContactDTO().getName());
+	                
+	                List<OriginDestinationDetails> OriginDestList = new ArrayList<>();
 	               
+//	                for(int i=0;i<obj.getForexAmountsDTOList().size();i++) 
+//	                {
+//	                	// OriginDestinationDetails OriginObj = new OriginDestinationDetails();
+//	                  // OriginObj.setAdultCount("Number Of Adults : "+obj.getOriginDestinationDetailDTOList().get(i).getAdultCount()); 
+//	                   context.setVariable("PaymentAmount","Payment Amount :"+obj.getForexAmountsDTOList().get(i).getAmount());
+//	     	           context.setVariable("PaymentId","Payment Id :"+obj.getServiceTransactionList().get(i).getTransactionNumber());
+//	     	        }
+	                context.setVariable("Name","Name of Applicant :" +obj.getPrimaryContactDTO().getName());
+	               // 
 	                for(int i=0;i<obj.getForexAmountsDTOList().size();i++) {
+	                	OriginDestinationDetails OriginObj = new OriginDestinationDetails();
+	                	
+	                	
+	                	
 	                	long id =obj.getForexAmountsDTOList().get(i).getCurrencyId();
-	                	Optional<SupportedCurrency> cur = supportedCurrencyRepo.findById(id);
-	                	   context.setVariable("Nameofcurrency","Name of currency :"+cur.get().getName());
-	                	   context.setVariable("AmountToInvest","Amount To Invest"+obj.getForexAmountsDTOList().get(i).getAmount());
+	                	
+	                	  Optional<SupportedCurrency> cur = supportedCurrencyRepo.findById(id);   
+	                	  OriginObj.setNameOfCurrency("Name of Currency :" +cur.get().getName());
+		                  OriginObj.setAmountOfInvest("Amount Of Invest :" +obj.getForexAmountsDTOList().get(i).getAmount()); 
+		                 
+	                
+	                	
+		                 //  OriginDestList.add(OriginObj);
+	                	  OriginDestList.add(OriginObj);
+	                	   //context.setVariable("AmountToInvest","Amount To Invest"+obj.getForexAmountsDTOList().get(i).getAmount());
 	                }
-	                context.setVariable("Mobilenumber","Mobile Number :"+obj.getPrimaryContactDTO().getPhoneNum());
+	                for(int i=0;i<obj.getForexAmountsDTOList().size();i++) {
+	                	if(i==0) {
+	      	          context.setVariable("PaymentAmount", "Payment Amount:" +" "+supportedCurrencyRepo.findById(obj.getForexAmountsDTOList().get(i).getCurrencyId()).get().getCode()+" "+obj.getForexAmountsDTOList().get(i).getAmount());
+	      	          context.setVariable("PaymentId","Payment Id :" +obj.getServiceTransactionList().get(i).getTransactionNumber());
+	      	         // SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	      	          //Date date = new Date();  
+	      	         // System.out.println(formatter.format(date));
+	      	          
+	      	         // context.setVariable("TransactionDate","Date and Time:"+formatter.format(date));
+	                	}else {
+	                		
+	                	}
+	              }
+	                
+	                  context.setVariable("originDestinationDetails",OriginDestList);
+	                  context.setVariable("Mobilenumber","Mobile Number :"+obj.getPrimaryContactDTO().getPhoneNum());
 			          context.setVariable("Email", "Email :"+ obj.getPrimaryContactDTO().getEmailId());
 			          context.setVariable("Address","Address :"+obj.getPrimaryContactDTO().getAddress());
 			          context.setVariable("Nationality","Nationality :"+nationality);
+			          SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+			          Date date = new Date();  
+			          System.out.println(formatter.format(date));
+			          
+			          context.setVariable("TransactionDate","Date and Time:"+formatter.format(date));
 	          }
         
         

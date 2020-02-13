@@ -28,10 +28,11 @@ public class PartnerServiceMailSender {
 	@Value("${travelini.sender.emailaddress}")
 	private String fromEmailAddress;
 
-//	@Value("${travelini.verificationmail.subject}")
-//	private String subject;
-
+	@Value("${travelini.verificationmail.subject}")
 	private String subject;
+
+	//private String subject;
+	
 	@Autowired
 	TraveliniAccount traveliniAccount;
 	
@@ -52,10 +53,11 @@ public class PartnerServiceMailSender {
 			
 			    String toEmail = traveliniAccount.getEmail();
 		         String AdminMail = "bookings@travelini.co";
-			     String AdminMail1 = "ankur@baymediasoft.com";
+			    // String AdminMail1 = "ankur@baymediasoft.com";
 			    
 			   // String AdminMail = "sandeep.joshi@ftechiz.com";
-			   // String AdminMail1 = "jayant.kumar@ftechiz.com";
+			    String AdminMail1 = "jayant.kumar@ftechiz.com";
+			     
 				String content = templateService.PartnerTransactionBuild(partnerServiceDTO,TransactionId);
 		        
 				
@@ -64,6 +66,7 @@ public class PartnerServiceMailSender {
 				
 		 		Userhelper.setFrom(fromEmailAddress);
 				Userhelper.setTo(toEmail);
+				
 				if(partnerServiceDTO.getType().toString().contains("INSURANCE")) {
 				Userhelper.setSubject("Application for Travel Insurance Quote Received");
 				}
@@ -88,19 +91,19 @@ public class PartnerServiceMailSender {
 		 		Adminhelper.setFrom(fromEmailAddress);
 		 		Adminhelper.setTo(AdminMail);
 		 		Adminhelper.setTo(AdminMail1);
-		 		if(partnerServiceDTO.getType().toString().contains("INSURANCE")) {
-		 			Adminhelper.setSubject("Application for Travel Insurance Quote Received");
-					}
-		 		else if(partnerServiceDTO.getType().toString().contains("VISA")) {
-		 			Adminhelper.setSubject("Request for VISA Application Service Recieved");
-					}
-		 
-				else if(partnerServiceDTO.getType().toString().contains("FOREX")) {
-					Adminhelper.setSubject("Application for Forex Received");
-				}
-				else if(partnerServiceDTO.getType().toString().contains("DRIVING")) {
-					Adminhelper.setSubject("Application for International License Received");
-				}
+//		 		if(partnerServiceDTO.getType().toString().contains("INSURANCE")) {
+//		 			Adminhelper.setSubject("Application for Travel Insurance Quote Received");
+//					}
+//		 		else if(partnerServiceDTO.getType().toString().contains("VISA")) {
+//		 			Adminhelper.setSubject("Request for VISA Application Service Recieved");
+//					}
+//		 
+//				else if(partnerServiceDTO.getType().toString().contains("FOREX")) {
+//					Adminhelper.setSubject("Application for Forex Received");
+//				}
+//				else if(partnerServiceDTO.getType().toString().contains("DRIVING")) {
+//					Adminhelper.setSubject("Application for International License Received");
+//				}
 		 		
 		 		Adminhelper.setText(content,true);
 				
