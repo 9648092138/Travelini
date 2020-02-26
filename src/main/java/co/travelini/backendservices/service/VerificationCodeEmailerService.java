@@ -1,5 +1,7 @@
 package co.travelini.backendservices.service;
 
+import java.io.IOException;
+
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +14,24 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.Mail;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
+
 import co.travelini.backendservices.entity.TraveliniAccount;
 import co.travelini.backendservices.util.EncodingUtil;
 import co.travelini.backendservices.util.EncryptionUtil;
 
 @Service
-public class VerificationCodeEmailerService {
+public class VerificationCodeEmailerService  {
 
 	@Autowired
 	private JavaMailSender emailSender;
+	
 	
 	@Autowired
 	private TemplateService templateService;
@@ -34,9 +45,18 @@ public class VerificationCodeEmailerService {
 	@Value("${travelini.verificationmail.text}")
 	private String verification_text;
 
+//using sendgrid
+	//@Autowired
+	//SendGrid sendGrid;
+
 
 	
 	
+
+
+
+
+
 	public void sendSimpleMessage(TraveliniAccount traveliniAccount, String token) 
 	{
 try
@@ -56,7 +76,7 @@ try
          String content = templateService.build(text);
 //		SimpleMailMessage message = new SimpleMailMessage();
 //         System.out.println("content"+content);
-         MimeMessage message = emailSender.createMimeMessage();
+        MimeMessage message = emailSender.createMimeMessage();
  		MimeMessageHelper helper = new MimeMessageHelper(message,true);
 		
 //		message.setFrom(fromEmailAddress);
@@ -86,5 +106,56 @@ catch(Exception e)
 }
 	
 
-
+	//using sandrill
+//	public void sendSimpleMessage(TraveliniAccount traveliniAccount, String token) 
+//	{
+//try
+//{
+//		String accountId = Long.toString(traveliniAccount.getAccountId());
+//
+//		String encryptedAccountId = EncodingUtil.encodeBase64(EncryptionUtil.encryptString(accountId));
+//		String encryptedToken = EncodingUtil.encodeBase64(EncryptionUtil.encryptString(token));
+//
+//		String text = verification_text.//
+//				replace("<account-id>", encryptedAccountId).//
+//				replace("<token>", encryptedToken);
+//  
+//	       System.out.println("send verifiction token"+text );
+//		
+//		String toEmail = traveliniAccount.getEmail();
+//         String content = templateService.build(text);
+//
+// 		Email from = new Email(fromEmailAddress);
+// 		Email to = new Email(toEmail);
+// 		Content contentText = new Content("text/plain",content);
+// 	
+// 		Mail mail = new Mail(from, subject, to,contentText);
+// 		System.out.println("token "+content);
+// 		
+// 		Request request = new Request();
+// 		
+//		//helper.setFrom(fromEmailAddress);
+//		//helper.setTo(toEmail);
+//		//helper.setSubject(subject);
+//		//helper.setText(content,true);
+// 		try {
+//            request.setMethod(Method.POST);
+//            request.setEndpoint("mail/send");
+//            request.setBody(mail.build());
+//            
+//            Response response = this.sendGrid.api(request);
+//            sendGrid.api(request);
+//
+//            // ...
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//		
+//}
+//catch(Exception e)
+//{
+//	e.printStackTrace();
+//	System.out.print(e);
+//}
+//}
 }

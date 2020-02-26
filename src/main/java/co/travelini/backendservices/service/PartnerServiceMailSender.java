@@ -10,6 +10,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.sendgrid.Content;
+import com.sendgrid.Email;
+import com.sendgrid.SendGrid;
+
 import co.travelini.backendservices.dto.request.PartnerServiceDTO;
 import co.travelini.backendservices.entity.FavouriteList;
 import co.travelini.backendservices.entity.ItineraryFlights;
@@ -39,6 +43,10 @@ public class PartnerServiceMailSender {
 	@Autowired
 	TraveliniAccountRepo repo;
 	
+	//using sandgrid
+	//@Autowired
+	//SendGrid sendGrid;
+
 	
 	//ItineraryFlights itineraryFlight;
 				
@@ -53,10 +61,10 @@ public class PartnerServiceMailSender {
 			
 			    String toEmail = traveliniAccount.getEmail();
 		         String AdminMail = "bookings@travelini.co";
-			    // String AdminMail1 = "ankur@baymediasoft.com";
+			     String AdminMail1 = "ankur@baymediasoft.com";
 			    
 			   // String AdminMail = "sandeep.joshi@ftechiz.com";
-			    String AdminMail1 = "jayant.kumar@ftechiz.com";
+			   // String AdminMail1 = "jayant.kumar@ftechiz.com";
 			     
 				String content = templateService.PartnerTransactionBuild(partnerServiceDTO,TransactionId);
 		        
@@ -91,19 +99,7 @@ public class PartnerServiceMailSender {
 		 		Adminhelper.setFrom(fromEmailAddress);
 		 		Adminhelper.setTo(AdminMail);
 		 		Adminhelper.setTo(AdminMail1);
-//		 		if(partnerServiceDTO.getType().toString().contains("INSURANCE")) {
-//		 			Adminhelper.setSubject("Application for Travel Insurance Quote Received");
-//					}
-//		 		else if(partnerServiceDTO.getType().toString().contains("VISA")) {
-//		 			Adminhelper.setSubject("Request for VISA Application Service Recieved");
-//					}
-//		 
-//				else if(partnerServiceDTO.getType().toString().contains("FOREX")) {
-//					Adminhelper.setSubject("Application for Forex Received");
-//				}
-//				else if(partnerServiceDTO.getType().toString().contains("DRIVING")) {
-//					Adminhelper.setSubject("Application for International License Received");
-//				}
+
 		 		
 		 		Adminhelper.setText(content,true);
 				
@@ -221,5 +217,7 @@ public class PartnerServiceMailSender {
 					//System.out.print(e);
 					}
 	}
+	
+	
 	
 }
